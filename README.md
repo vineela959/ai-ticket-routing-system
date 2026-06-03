@@ -1,66 +1,131 @@
 # ai-ticket-routing-system
 Ai-powered customer support ticket routing using Gemini + n8n + Gmail automation
-# 🚀 AI Ticket Routing System (n8n + Gemini AI)
+# 🚀 AI-Powered Customer Support Ticket Routing System
+
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Gemini%20Powered-blue" />
+  <img src="https://img.shields.io/badge/Automation-n8n-orange" />
+  <img src="https://img.shields.io/badge/Status-Live-success" />
+</p>
+
+---
 
 ## 📌 Overview
-An AI-powered automation system that classifies customer support tickets and routes them to the correct department automatically using n8n workflows and Google Gemini AI.
+
+An AI-powered automation system that classifies customer support tickets and routes them automatically to the correct department using **Google Gemini AI + n8n workflow automation + Gmail API**.
+
+This system simulates real-world SaaS support infrastructure used in modern companies.
 
 ---
 
 ## 🎯 Problem Statement
-Manual ticket handling causes delays and misrouting. This system automates:
-- Ticket classification
-- Department routing
-- Email notification
+
+Manual ticket handling leads to:
+- Slow response time  
+- Misrouting of issues  
+- High workload on support teams  
+
+### 💡 Solution
+An automated AI system that:
+- Understands customer issues
+- Classifies tickets intelligently
+- Routes them to correct teams instantly
+- Sends structured email notifications
 
 ---
 
 ## ⚙️ System Architecture
 
-Customer Form → Google Gemini AI → Switch Node → Gmail Automation
+Customer Form Submission → Gemini AI → Switch Node → Gmail Automation
 
 ---
 
-## 🧠 AI Features
-- Ticket classification:
+## 📸 Workflow Diagram
+
+![Workflow](workflow.png)
+
+---
+
+## 🧠 AI Capabilities
+
+- Ticket Classification:
   - Support
   - Engineering
   - Finance
-- Priority detection: High / Medium / Low
-- Sentiment analysis
-- Structured JSON output
+
+- Priority Detection:
+  - High / Medium / Low
+
+- Sentiment Analysis:
+  - Positive / Neutral / Negative
+
+- Structured JSON Output for automation
 
 ---
 
 ## 🛠 Tech Stack
-- n8n (Workflow automation)
-- Google Gemini API
-- Gmail API
-- JSON parsing
-- Switch-based routing logic
+
+- n8n (Workflow Automation)
+- Google Gemini API (AI Classification)
+- Gmail API (Email Automation)
+- JSON Parsing
+- Switch-based Routing Logic
 
 ---
 
-## 📧 Example Output
+## 📧 Example
 
-Input:
+### Input:
 "I was charged twice for my subscription"
 
-Output:
+### Output:
 - Category: Finance  
 - Department: Finance  
 - Priority: High  
 - Sentiment: Negative  
 
----
-
-## 🚀 Live Status
-✔ Workflow is deployed and active using n8n automation
+### Action:
+Automatically sends email to Finance team with full ticket details
 
 ---
 
-## 🔥 Future Improvements
+## 📊 Impact
+
+- Reduced manual ticket handling time  
+- Faster response workflow  
+- Automated routing system  
+- Real-world SaaS simulation  
+
+---
+
+## 🔥 Key Highlights
+
+- Real-time AI decision making  
+- Fully automated workflow  
+- Scalable system design  
+- Production-style automation logic  
+
+---
+
+## 🚀 Future Improvements
+
 - Auto Ticket ID generation (TCK-0001)
 - Google Sheets database logging
-- Slack notifications for Engineering
-- SLA escalation system
+- Slack notifications for Engineering team
+- SLA-based escalation system
+- Auto-reply email to customers
+
+---
+
+## 🏁 Status
+
+✔ Deployed using n8n  
+✔ Active automation workflow  
+✔ Production-ready prototype  
+
+---
+
+## 👨‍💻 Author
+
+Built as part of AI Automation Learning Journey  
+Focused on real-world workflow automation + AI systems design
