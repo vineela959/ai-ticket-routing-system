@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AI Ticket Routing System</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
 <style>
 
@@ -19,458 +17,366 @@ box-sizing:border-box;
 }
 
 :root{
---bg:#070b16;
+--bg:#080d18;
 --card:#111827;
---card2:#172033;
+--card2:#1b263b;
 --cyan:#00d4ff;
 --green:#00e599;
---orange:#ffb800;
 --red:#ff4d6d;
+--yellow:#ffb800;
 --text:#e8f4fd;
---muted:#8190aa;
---border:#22304a;
+--muted:#7a8ba8;
+--border:#243451;
 }
-
 
 body{
 background:var(--bg);
 color:var(--text);
-font-family:Inter,sans-serif;
+font-family:'Space Grotesk',sans-serif;
 line-height:1.6;
 overflow-x:hidden;
 }
 
 
-body:before{
-content:"";
-position:fixed;
-inset:0;
-background:
-linear-gradient(#00d4ff11 1px,transparent 1px),
-linear-gradient(90deg,#00d4ff11 1px,transparent 1px);
-background-size:50px 50px;
-z-index:-1;
-}
-
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:30px;
-}
-
-
-
 nav{
 position:fixed;
 top:0;
-left:0;
-right:0;
-height:70px;
-background:#070b16dd;
-backdrop-filter:blur(10px);
-border-bottom:1px solid var(--border);
+width:100%;
+z-index:10;
+padding:18px 40px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:0 40px;
-z-index:10;
+background:#080d18dd;
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);
 }
-
 
 .logo{
-font-size:20px;
-font-weight:800;
+font-weight:700;
 color:var(--cyan);
 }
-
 
 nav a{
 color:var(--muted);
 text-decoration:none;
-margin-left:25px;
-font-size:14px;
+margin-left:20px;
 }
 
 
-
 .hero{
+
 height:100vh;
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 text-align:center;
-padding-top:70px;
+padding:40px;
+
+background:
+linear-gradient(#00d4ff08 1px,transparent 1px),
+linear-gradient(90deg,#00d4ff08 1px,transparent 1px);
+
+background-size:50px 50px;
+
 }
 
 
 .hero h1{
+
 font-size:clamp(40px,7vw,80px);
-font-weight:800;
+line-height:1;
+
 }
 
 
 .hero span{
-background:linear-gradient(90deg,var(--cyan),#7c5cff);
+
+background:linear-gradient(90deg,var(--cyan),#8b5cf6);
 -webkit-background-clip:text;
 color:transparent;
+
 }
 
 
 .hero p{
+
 max-width:600px;
-margin:20px auto;
+margin:25px auto;
 color:var(--muted);
-font-size:18px;
+
 }
 
 
-
 .btn{
-display:inline-block;
-padding:12px 28px;
+
+padding:12px 25px;
 border-radius:8px;
 background:var(--cyan);
-color:#000;
-font-weight:700;
+color:black;
 text-decoration:none;
-margin-top:20px;
+font-weight:bold;
+
 }
 
 
 
 section{
-margin:100px auto;
+
 max-width:1100px;
-padding:30px;
+margin:auto;
+padding:80px 25px;
+
 }
 
 
+.title{
 
-.label{
-font-family:"JetBrains Mono";
-color:var(--cyan);
-font-size:12px;
-letter-spacing:2px;
+font-size:30px;
+margin-bottom:15px;
+
 }
 
 
+.subtitle{
 
-h2{
-font-size:36px;
-margin:10px 0 30px;
+color:var(--muted);
+margin-bottom:35px;
+
 }
 
 
+/* DEMO */
 
 .demo{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
 
-
-
-.card{
 background:var(--card);
 border:1px solid var(--border);
-border-radius:16px;
-padding:25px;
+border-radius:15px;
+overflow:hidden;
+
 }
 
+
+.demo-head{
+
+padding:12px;
+background:var(--card2);
+font-family:'JetBrains Mono';
+
+}
+
+
+.demo-body{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+
+}
+
+
+.demo-left,
+.demo-right{
+
+padding:25px;
+
+}
 
 
 .ticket{
+
+display:block;
+width:100%;
+text-align:left;
+padding:14px;
+margin-bottom:12px;
+border-radius:8px;
+
 background:var(--card2);
 border:1px solid var(--border);
-padding:15px;
-border-radius:10px;
-margin:10px 0;
-cursor:pointer;
+
 color:var(--muted);
+
+cursor:pointer;
+
+transition:.2s;
+
 }
 
 
-.ticket:hover{
+.ticket:hover,
+.ticket.active{
+
 border-color:var(--cyan);
+background:#00d4ff22;
 color:white;
+
 }
 
 
+.classify{
 
-button{
 width:100%;
 padding:14px;
 border:0;
 border-radius:8px;
+
 background:var(--cyan);
-font-weight:700;
+font-weight:bold;
+
 cursor:pointer;
+
 }
 
 
-
 .result{
-margin-top:20px;
+
 display:none;
+}
+
+
+.result.show{
+
+display:block;
+
 }
 
 
 .row{
+
 display:flex;
 justify-content:space-between;
-background:var(--card2);
 padding:12px;
-margin:8px 0;
-border-radius:8px;
-}
 
+background:var(--card2);
+margin-bottom:10px;
+border-radius:8px;
+
+}
 
 
 .badge{
-padding:5px 12px;
+
+padding:4px 12px;
 border-radius:20px;
 font-size:12px;
-font-weight:700;
-}
-
-
-
-.blue{background:#00d4ff22;color:var(--cyan);}
-.green{background:#00e59922;color:var(--green);}
-.red{background:#ff4d6d22;color:var(--red);}
-.orange{background:#ffb80022;color:var(--orange);}
-
-
-
-@media(max-width:800px){
-
-.demo{
-grid-template-columns:1fr;
-}
-
-nav div{
-display:none;
-}
 
 }
 
-/* PART 2 */
 
-.flow-grid,
-.cards,
-.stack-grid,
-.impact-grid{
-display:grid;
-gap:20px;
+.finance{
+background:#ffb80033;
+color:var(--yellow);
 }
 
-
-.flow-grid{
-grid-template-columns:repeat(4,1fr);
-}
-
-
-
-.flow-card,
-.cap-card,
-.stack-card,
-.impact-card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:16px;
-padding:25px;
-transition:.2s;
-}
-
-
-
-.flow-card:hover,
-.cap-card:hover,
-.stack-card:hover,
-.impact-card:hover{
-transform:translateY(-5px);
-border-color:var(--cyan);
-}
-
-
-
-.icon{
-font-size:35px;
-margin-bottom:15px;
-}
-
-
-
-.small{
-color:var(--muted);
-font-size:14px;
-}
-
-
-
-.impact-grid{
-grid-template-columns:repeat(3,1fr);
-width:100%;
-}
-
-
-
-.impact-card{
-text-align:center;
-}
-
-
-
-.number{
-font-size:45px;
-font-weight:800;
+.support{
+background:#00d4ff33;
 color:var(--cyan);
 }
 
-
-
-.stack-grid{
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+.engineering{
+background:#8b5cf633;
+color:#a78bfa;
 }
 
-
-
-.roadmap{
-border-left:2px solid var(--border);
-padding-left:25px;
+.high{
+background:#ff4d6d33;
+color:var(--red);
 }
 
-
-
-.step{
-margin-bottom:25px;
+.medium{
+background:#ffb80033;
+color:var(--yellow);
 }
 
-
-
-.dot{
-width:12px;
-height:12px;
-border-radius:50%;
-background:var(--green);
-display:inline-block;
-margin-right:10px;
+.low{
+background:#00e59933;
+color:var(--green);
 }
 
+<!-- LIVE DEMO -->
+<section class="demo-section reveal" id="demo">
 
-
-footer{
-border-top:1px solid var(--border);
-margin-top:80px;
-padding:40px;
-text-align:center;
-color:var(--muted);
-}
-
-
-
-@media(max-width:800px){
-
-.flow-grid,
-.impact-grid{
-grid-template-columns:1fr;
-}
-
-}
-</style>
-
-</head>
-
-
-<body>
-
-
-<nav>
-
-<div class="logo">
-⚡ AI·ROUTE
-</div>
-
-<div>
-<a href="#demo">Demo</a>
-<a href="#architecture">Architecture</a>
-<a href="#roadmap">Roadmap</a>
-</div>
-
-</nav>
-
-
-
-<div class="container">
-
-
-<section class="hero">
-
-<div>
-
-<div class="label">
-AI AUTOMATION · n8n · GEMINI
-</div>
-
-
-<h1>
-Customer Support<br>
-<span>Tickets Routed Instantly</span>
-</h1>
-
-
-<p>
-AI powered ticket classification system that understands,
-prioritizes and routes customer issues automatically.
+<div class="section-label">Interactive Demo</div>
+<h2 class="section-title">Watch the AI Classify a Ticket</h2>
+<p class="section-sub">
+Select a ticket and see AI routing decision.
 </p>
 
+<div class="demo-card">
 
-<a class="btn" href="#demo">
-View Demo
-</a>
-
-
+<div class="demo-toolbar">
+<span class="dot dot-r"></span>
+<span class="dot dot-y"></span>
+<span class="dot dot-g"></span>
+<div class="demo-toolbar-title">
+ticket-router — live simulation
 </div>
-
-</section>
-
-
-
-<section id="demo">
-
-<div class="label">
-LIVE DEMO
-</div>
-
-<h2>
-AI Ticket Classification
-</h2>
-
-
-<div class="demo">
-
-
-<div class="card">
-
-
-<div class="ticket" onclick="runDemo('Finance','High','Negative')">
-💳 Double charged subscription
 </div>
 
 
-<div class="ticket" onclick="runDemo('Engineering','High','Negative')">
-🐛 Application crashing
+<div class="demo-body">
+
+
+<div class="demo-input-area">
+
+<div class="demo-input-label">
+Incoming Ticket
 </div>
 
 
-<div class="ticket" onclick="runDemo('Support','Medium','Neutral')">
-🔑 Password reset issue
-</div>
+<div class="ticket-examples" id="ticketList">
 
 
-<button onclick="showResult()">
-⚡ Classify Ticket
+<button class="ticket-chip active"
+data-cat="Finance"
+data-dept="Finance"
+data-pri="High"
+data-sen="Negative"
+data-route="finance@company.com">
+
+💳 Double charge issue
+
+</button>
+
+
+
+<button class="ticket-chip"
+data-cat="Support"
+data-dept="Support"
+data-pri="Medium"
+data-sen="Neutral"
+data-route="support@company.com">
+
+🔑 Password reset problem
+
+</button>
+
+
+
+
+<button class="ticket-chip"
+data-cat="Engineering"
+data-dept="Engineering"
+data-pri="High"
+data-sen="Negative"
+data-route="engineering@company.com">
+
+🐛 Application crash issue
+
+</button>
+
+
+
+<button class="ticket-chip"
+data-cat="Support"
+data-dept="Support"
+data-pri="Low"
+data-sen="Positive"
+data-route="support@company.com">
+
+📦 Feature question
+
 </button>
 
 
@@ -478,156 +384,225 @@ AI Ticket Classification
 
 
 
-<div class="card">
+<button class="classify-btn" id="classifyBtn">
 
+⚡ Classify & Route Ticket
 
-<h3>
-AI Result
-</h3>
-
-
-<div id="result" class="result">
-
-
-<div class="row">
-Category
-<span id="cat" class="badge blue"></span>
-</div>
-
-
-<div class="row">
-Priority
-<span id="priority" class="badge orange"></span>
-</div>
-
-
-<div class="row">
-Sentiment
-<span id="sentiment" class="badge red"></span>
-</div>
+</button>
 
 
 </div>
 
 
+
+<div class="demo-divider"></div>
+
+
+<div class="demo-output-area">
+
+
+<div class="output-idle" id="outputIdle">
+
+🤖
+
+<p>
+Select a ticket and classify
+</p>
+
+</div>
+
+
+
+<div class="output-result" id="outputResult">
+
+
+<div class="result-row">
+<span class="result-key">Category</span>
+<span class="badge badge-support" id="category">
+Support
+</span>
+</div>
+
+
+
+<div class="result-row">
+<span class="result-key">Department</span>
+<span class="result-val" id="department">
+Support
+</span>
+</div>
+
+
+
+<div class="result-row">
+<span class="result-key">Priority</span>
+<span class="badge badge-medium" id="priority">
+Medium
+</span>
+</div>
+
+
+
+<div class="result-row">
+<span class="result-key">Sentiment</span>
+<span class="badge badge-neutral" id="sentiment">
+Neutral
+</span>
+</div>
+
+
+
+<div class="route-indicator">
+
+<div class="dot-pulse"></div>
+
+<span class="route-text" id="route">
+Routing to support@company.com
+</span>
+
+</div>
+
+
+
 </div>
 
 
 </div>
 
+
+</div>
+
+</div>
 
 </section>
+
 
 <!-- ARCHITECTURE -->
 
-<section id="architecture">
+<section class="flow-section reveal" id="architecture">
 
-<div class="label">
-SYSTEM ARCHITECTURE
+<div class="section-label">
+System Architecture
 </div>
 
-<h2>
-Workflow Pipeline
+
+<h2 class="section-title">
+AI Ticket Pipeline
 </h2>
 
 
-<div class="flow-grid">
+<div class="flow-steps">
 
 
-<div class="flow-card">
-<div class="icon">📋</div>
-<h3>Form Input</h3>
-<p class="small">
+<div class="flow-step">
+<div class="step-num">01</div>
+<div class="step-icon">📋</div>
+<div class="step-title">
+Form Submission
+</div>
+<div class="step-desc">
 Customer submits support ticket
-</p>
+</div>
 </div>
 
 
-<div class="flow-card">
-<div class="icon">🧠</div>
-<h3>Gemini AI</h3>
-<p class="small">
-Classifies category, priority and sentiment
-</p>
+
+<div class="flow-step">
+<div class="step-num">02</div>
+<div class="step-icon">🧠</div>
+<div class="step-title">
+Gemini AI
+</div>
+<div class="step-desc">
+Analyzes ticket and creates JSON classification
+</div>
 </div>
 
 
-<div class="flow-card">
-<div class="icon">🔀</div>
-<h3>Switch Node</h3>
-<p class="small">
-Routes ticket automatically
-</p>
+
+
+<div class="flow-step">
+<div class="step-num">03</div>
+<div class="step-icon">🔀</div>
+<div class="step-title">
+Switch Node
+</div>
+<div class="step-desc">
+Routes ticket based on department
+</div>
 </div>
 
 
-<div class="flow-card">
-<div class="icon">📧</div>
-<h3>Gmail API</h3>
-<p class="small">
-Notifies correct team
-</p>
+
+<div class="flow-step">
+<div class="step-num">04</div>
+<div class="step-icon">📧</div>
+<div class="step-title">
+Gmail API
 </div>
+<div class="step-desc">
+Sends notification automatically
+</div>
+</div>
+
 
 
 </div>
 
 </section>
-
-
-
 
 <!-- CAPABILITIES -->
 
+<section class="caps-section reveal" id="capabilities">
 
-<section>
-
-
-<div class="label">
-AI CAPABILITIES
+<div class="section-label">
+AI Capabilities
 </div>
 
-<h2>
-What The System Does
+<h2 class="section-title">
+What the System Does
 </h2>
 
 
-<div class="cards">
+<div class="caps-grid">
 
 
 <div class="cap-card">
-<div class="icon">🏷️</div>
-<h3>Classification</h3>
-<p class="small">
-Support, Engineering and Finance routing
-</p>
+<div class="cap-icon">🏷️</div>
+<div class="cap-title">Ticket Classification</div>
+<div class="cap-desc">
+Gemini AI understands customer issues and routes them to Support, Engineering, or Finance.
+</div>
 </div>
 
 
+
 <div class="cap-card">
-<div class="icon">🚦</div>
-<h3>Priority Detection</h3>
-<p class="small">
-Detects High, Medium and Low urgency
-</p>
+<div class="cap-icon">🚦</div>
+<div class="cap-title">Priority Detection</div>
+<div class="cap-desc">
+Detects urgency and assigns High, Medium, or Low priority automatically.
+</div>
 </div>
 
 
+
 <div class="cap-card">
-<div class="icon">💬</div>
-<h3>Sentiment Analysis</h3>
-<p class="small">
-Understands customer emotion
-</p>
+<div class="cap-icon">💬</div>
+<div class="cap-title">Sentiment Analysis</div>
+<div class="cap-desc">
+Analyzes customer emotion and adjusts ticket handling priority.
+</div>
 </div>
 
 
+
 <div class="cap-card">
-<div class="icon">JSON</div>
-<h3>Structured Output</h3>
-<p class="small">
-Automation-ready JSON response
-</p>
+<div class="cap-icon">📦</div>
+<div class="cap-title">JSON Automation Output</div>
+<div class="cap-desc">
+Creates structured data used by n8n routing logic.
+</div>
 </div>
 
 
@@ -637,151 +612,145 @@ Automation-ready JSON response
 
 
 
+<!-- STACK -->
 
+<section class="stack-section reveal">
 
-<!-- IMPACT -->
-
-
-<section>
-
-
-<div class="label">
-PROJECT IMPACT
+<div class="section-label">
+Technology Stack
 </div>
 
-
-<h2>
-Automation Results
-</h2>
-
-
-
-<div class="impact-grid">
-
-
-<div class="impact-card">
-<div class="number">AI</div>
-<p class="small">
-Decision Making
-</p>
-</div>
-
-
-<div class="impact-card">
-<div class="number">24/7</div>
-<p class="small">
-Workflow Availability
-</p>
-</div>
-
-
-<div class="impact-card">
-<div class="number">⚡</div>
-<p class="small">
-Faster Routing
-</p>
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<!-- TECH STACK -->
-
-
-<section>
-
-
-<div class="label">
-TECH STACK
-</div>
-
-
-<h2>
+<h2 class="section-title">
 Built With
 </h2>
 
 
-<div class="stack-grid">
+<div class="stack-list">
 
 
-<div class="stack-card">
-⚙️ n8n Automation
+<div class="stack-item">
+⚡ n8n Automation
 </div>
 
 
-<div class="stack-card">
+<div class="stack-item">
 🧠 Google Gemini API
 </div>
 
 
-<div class="stack-card">
+<div class="stack-item">
 📧 Gmail API
 </div>
 
 
-<div class="stack-card">
-📦 JSON
+<div class="stack-item">
+🔀 Switch Routing Logic
+</div>
+
+
+<div class="stack-item">
+📄 JSON Processing
 </div>
 
 
 </div>
-
 
 </section>
-
 
 
 
 
 <!-- ROADMAP -->
 
+<section class="road-section reveal" id="roadmap">
 
-<section id="roadmap">
 
-
-<div class="label">
-FUTURE IMPROVEMENTS
+<div class="section-label">
+Future Improvements
 </div>
 
 
-<h2>
-Roadmap
+<h2 class="section-title">
+Next Upgrades
 </h2>
 
 
 
-<div class="roadmap">
+<div class="road-items">
 
 
-<div class="step">
-<span class="dot"></span>
-Auto Ticket ID Generation
+
+<div class="road-item done">
+
+<div class="road-title">
+AI Ticket Classification
+<span class="road-badge rb-done">
+DONE
+</span>
+</div>
+
+<div class="road-desc">
+Gemini powered issue detection and routing.
+</div>
+
 </div>
 
 
-<div class="step">
-<span class="dot"></span>
+
+
+<div class="road-item soon">
+
+<div class="road-title">
 Google Sheets Logging
+<span class="road-badge rb-soon">
+NEXT
+</span>
+</div>
+
+<div class="road-desc">
+Store tickets, timestamps and results.
+</div>
+
 </div>
 
 
-<div class="step">
-<span class="dot"></span>
+
+
+
+<div class="road-item">
+
+<div class="road-title">
 Slack Notifications
+<span class="road-badge rb-planned">
+PLANNED
+</span>
+</div>
+
+<div class="road-desc">
+Instant alerts for high priority issues.
+</div>
+
 </div>
 
 
-<div class="step">
-<span class="dot"></span>
-SLA Escalation
+
+
+
+<div class="road-item">
+
+<div class="road-title">
+Auto Customer Reply
+<span class="road-badge rb-planned">
+PLANNED
+</span>
 </div>
+
+<div class="road-desc">
+Send acknowledgement emails automatically.
+</div>
+
+</div>
+
 
 
 </div>
@@ -792,16 +761,37 @@ SLA Escalation
 
 
 
-
 <footer>
 
-Built as part of AI Automation Learning Journey 🚀
 
-</footer>
+<div class="footer-left">
 
+⚡ AI Ticket Routing System
+
+<br>
+
+Built with n8n + Gemini AI + Gmail API
+
+<br>
+
+AI Automation Learning Journey
+
+</div>
+
+
+
+<div class="footer-links">
+
+<a href="https://github.com">
+GitHub
+</a>
 
 
 </div>
+
+
+</footer>
+
 
 
 
@@ -809,42 +799,116 @@ Built as part of AI Automation Learning Journey 🚀
 <script>
 
 
-let current = {
-category:"Finance",
-priority:"High",
-sentiment:"Negative"
+let selectedTicket = null;
+
+
+const tickets = document.querySelectorAll(".ticket-chip");
+
+const output = document.getElementById("outputResult");
+
+const idle = document.getElementById("outputIdle");
+
+
+
+tickets.forEach(ticket => {
+
+
+ticket.addEventListener("click",()=>{
+
+
+tickets.forEach(t=>t.classList.remove("active"));
+
+
+ticket.classList.add("active");
+
+
+selectedTicket = ticket;
+
+
+});
+
+
+});
+
+
+
+
+
+document.getElementById("classifyBtn").onclick = function(){
+
+
+if(!selectedTicket) return;
+
+
+
+idle.style.display="none";
+
+
+output.classList.add("visible");
+
+
+
+document.getElementById("category").innerText =
+selectedTicket.dataset.cat;
+
+
+
+document.getElementById("department").innerText =
+selectedTicket.dataset.dept;
+
+
+
+document.getElementById("priority").innerText =
+selectedTicket.dataset.pri;
+
+
+
+document.getElementById("sentiment").innerText =
+selectedTicket.dataset.sen;
+
+
+
+document.getElementById("route").innerText =
+"Routing to " + selectedTicket.dataset.route;
+
+
+
 };
 
 
 
-function runDemo(a,b,c){
 
-current.category=a;
-current.priority=b;
-current.sentiment=c;
 
+
+const reveals =
+document.querySelectorAll(".reveal");
+
+
+window.addEventListener("scroll",()=>{
+
+
+reveals.forEach(r=>{
+
+
+let top =
+r.getBoundingClientRect().top;
+
+
+if(top < window.innerHeight-80)
+{
+r.classList.add("visible");
 }
 
 
-function showResult(){
+});
 
 
-document.getElementById("result").style.display="block";
+});
 
-
-cat.innerText=current.category;
-
-priority.innerText=current.priority;
-
-sentiment.innerText=current.sentiment;
-
-
-}
 
 
 </script>
 
 
 </body>
-
 </html>
