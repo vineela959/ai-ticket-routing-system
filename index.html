@@ -1,777 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AI Ticket Routing System</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
 
 <style>
-*,
-*::before,
-*::after{
-box-sizing:border-box;
+
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
 }
 
 :root{
---navy:#0A0F1E;
+--bg:#070b16;
 --card:#111827;
---card2:#1A2340;
---cyan:#00D4FF;
---cyan-dim:#00D4FF22;
---green:#00E599;
---amber:#FFB800;
---red:#FF4D6D;
---text:#E8F4FD;
---muted:#7A8BA8;
---border:#1E2D47;
+--card2:#172033;
+--cyan:#00d4ff;
+--green:#00e599;
+--orange:#ffb800;
+--red:#ff4d6d;
+--text:#e8f4fd;
+--muted:#8190aa;
+--border:#22304a;
 }
 
+
 body{
-background:var(--navy);
+background:var(--bg);
 color:var(--text);
-font-family:'Inter',sans-serif;
+font-family:Inter,sans-serif;
 line-height:1.6;
 overflow-x:hidden;
 }
 
-html{
-scroll-behavior:smooth;
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+linear-gradient(#00d4ff11 1px,transparent 1px),
+linear-gradient(90deg,#00d4ff11 1px,transparent 1px);
+background-size:50px 50px;
+z-index:-1;
 }
 
 
-/* NAV */
+.container{
+max-width:1100px;
+margin:auto;
+padding:30px;
+}
+
+
 
 nav{
 position:fixed;
 top:0;
 left:0;
 right:0;
-z-index:100;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:18px 48px;
-background:#0a0f1edd;
-backdrop-filter:blur(14px);
+height:70px;
+background:#070b16dd;
+backdrop-filter:blur(10px);
 border-bottom:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 40px;
+z-index:10;
 }
 
-.nav-logo{
-font-family:'Space Grotesk',sans-serif;
-font-weight:700;
+
+.logo{
+font-size:20px;
+font-weight:800;
 color:var(--cyan);
 }
 
-.nav-logo span{
-color:var(--text);
-}
 
-.nav-links{
-display:flex;
-gap:30px;
-}
-
-.nav-links a{
+nav a{
 color:var(--muted);
 text-decoration:none;
-font-size:.85rem;
-}
-
-.nav-links a:hover{
-color:var(--cyan);
-}
-
-.nav-badge{
-background:var(--green);
-color:#000;
-padding:3px 10px;
-border-radius:20px;
-font-size:.7rem;
-font-weight:700;
+margin-left:25px;
+font-size:14px;
 }
 
 
-/* HERO */
 
 .hero{
-min-height:100vh;
+height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
-text-align:center;
-padding:120px 30px 80px;
-position:relative;
-}
-
-.hero-grid{
-position:absolute;
-inset:0;
-background-image:
-linear-gradient(#00d4ff11 1px,transparent 1px),
-linear-gradient(90deg,#00d4ff11 1px,transparent 1px);
-background-size:48px 48px;
-}
-
-.hero-content{
-position:relative;
-max-width:800px;
-}
-
-.hero-eyebrow{
-color:var(--cyan);
-font-family:'JetBrains Mono',monospace;
-letter-spacing:.12em;
-margin-bottom:25px;
-}
-
-h1{
-font-family:'Space Grotesk',sans-serif;
-font-size:clamp(2.5rem,5vw,4rem);
-line-height:1.1;
-}
-
-h1 em{
-font-style:normal;
-background:linear-gradient(90deg,var(--cyan),#7B61FF);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.hero-sub{
-color:var(--muted);
-margin:25px auto;
-max-width:600px;
-}
-
-.hero-actions{
-display:flex;
 justify-content:center;
-gap:15px;
-flex-wrap:wrap;
+text-align:center;
+padding-top:70px;
 }
+
+
+.hero h1{
+font-size:clamp(40px,7vw,80px);
+font-weight:800;
+}
+
+
+.hero span{
+background:linear-gradient(90deg,var(--cyan),#7c5cff);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+
+.hero p{
+max-width:600px;
+margin:20px auto;
+color:var(--muted);
+font-size:18px;
+}
+
+
 
 .btn{
-padding:12px 25px;
+display:inline-block;
+padding:12px 28px;
 border-radius:8px;
-text-decoration:none;
-font-weight:600;
-}
-
-.btn-primary{
 background:var(--cyan);
 color:#000;
-}
-
-.btn-ghost{
-border:1px solid var(--border);
-color:var(--text);
-}
-
-.btn-ghost:hover{
-border-color:var(--cyan);
-color:var(--cyan);
+font-weight:700;
+text-decoration:none;
+margin-top:20px;
 }
 
 
-/* DEMO */
 
-.demo-section,
-.flow-section,
-.caps-section,
-.stack-section,
-.road-section{
+section{
+margin:100px auto;
 max-width:1100px;
-margin:auto;
-padding:80px 30px;
+padding:30px;
 }
 
-.section-label{
-font-family:'JetBrains Mono',monospace;
+
+
+.label{
+font-family:"JetBrains Mono";
 color:var(--cyan);
-font-size:.75rem;
-letter-spacing:.15em;
+font-size:12px;
+letter-spacing:2px;
 }
 
-.section-title{
-font-family:'Space Grotesk',sans-serif;
-font-size:2rem;
-margin:10px 0;
+
+
+h2{
+font-size:36px;
+margin:10px 0 30px;
 }
 
-.section-sub{
-color:var(--muted);
+
+
+.demo{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
 }
 
-<style>
 
-/* DEMO CARD */
 
-.demo-card{
+.card{
 background:var(--card);
 border:1px solid var(--border);
-border-radius:14px;
-overflow:hidden;
-margin-top:40px;
+border-radius:16px;
+padding:25px;
 }
 
-.demo-toolbar{
+
+
+.ticket{
 background:var(--card2);
-padding:12px 18px;
+border:1px solid var(--border);
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+cursor:pointer;
+color:var(--muted);
+}
+
+
+.ticket:hover{
+border-color:var(--cyan);
+color:white;
+}
+
+
+
+button{
+width:100%;
+padding:14px;
+border:0;
+border-radius:8px;
+background:var(--cyan);
+font-weight:700;
+cursor:pointer;
+}
+
+
+
+.result{
+margin-top:20px;
+display:none;
+}
+
+
+.row{
 display:flex;
-gap:8px;
-align-items:center;
-border-bottom:1px solid var(--border);
-}
-
-.dot{
-width:10px;
-height:10px;
-border-radius:50%;
-}
-
-.dot-r{background:#ff5f57}
-.dot-y{background:#ffbd2e}
-.dot-g{background:#28ca41}
-
-.demo-toolbar-title{
-margin:auto;
-font-family:'JetBrains Mono',monospace;
-font-size:.75rem;
-color:var(--muted);
+justify-content:space-between;
+background:var(--card2);
+padding:12px;
+margin:8px 0;
+border-radius:8px;
 }
 
 
-.demo-body{
+
+.badge{
+padding:5px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:700;
+}
+
+
+
+.blue{background:#00d4ff22;color:var(--cyan);}
+.green{background:#00e59922;color:var(--green);}
+.red{background:#ff4d6d22;color:var(--red);}
+.orange{background:#ffb80022;color:var(--orange);}
+
+
+
+@media(max-width:800px){
+
+.demo{
+grid-template-columns:1fr;
+}
+
+nav div{
+display:none;
+}
+
+}
+
+/* PART 2 */
+
+.flow-grid,
+.cards,
+.stack-grid,
+.impact-grid{
 display:grid;
-grid-template-columns:1fr 1px 1fr;
-min-height:330px;
-}
-
-.demo-divider{
-background:var(--border);
+gap:20px;
 }
 
 
-/* INPUT */
-
-.demo-input-area,
-.demo-output-area{
-padding:28px;
+.flow-grid{
+grid-template-columns:repeat(4,1fr);
 }
 
-.demo-input-label{
-font-family:'JetBrains Mono',monospace;
-font-size:.7rem;
-color:var(--muted);
+
+
+.flow-card,
+.cap-card,
+.stack-card,
+.impact-card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:25px;
+transition:.2s;
+}
+
+
+
+.flow-card:hover,
+.cap-card:hover,
+.stack-card:hover,
+.impact-card:hover{
+transform:translateY(-5px);
+border-color:var(--cyan);
+}
+
+
+
+.icon{
+font-size:35px;
 margin-bottom:15px;
 }
 
 
-.ticket-examples{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-bottom:20px;
-}
 
-
-.ticket-chip{
-background:var(--card2);
-border:1px solid var(--border);
+.small{
 color:var(--muted);
-padding:12px;
-border-radius:8px;
-cursor:pointer;
-text-align:left;
-transition:.2s;
+font-size:14px;
 }
 
 
-.ticket-chip:hover,
-.ticket-chip.active{
-border-color:var(--cyan);
-color:var(--text);
-background:var(--cyan-dim);
-}
 
-
-.classify-btn{
+.impact-grid{
+grid-template-columns:repeat(3,1fr);
 width:100%;
-background:var(--cyan);
-color:#000;
-border:none;
-padding:12px;
-border-radius:8px;
-font-weight:700;
-cursor:pointer;
 }
 
 
-/* OUTPUT */
 
-.output-idle{
-height:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-color:var(--muted);
+.impact-card{
 text-align:center;
 }
 
 
-.output-result{
-display:none;
-flex-direction:column;
-gap:14px;
-}
 
-
-.output-result.visible{
-display:flex;
-}
-
-
-.result-row{
-display:flex;
-justify-content:space-between;
-padding:12px;
-background:var(--card2);
-border-radius:8px;
-}
-
-
-.result-key{
-font-family:'JetBrains Mono',monospace;
-font-size:.75rem;
-color:var(--muted);
-}
-
-
-.badge{
-padding:4px 12px;
-border-radius:20px;
-font-size:.7rem;
-font-weight:700;
-}
-
-
-.badge-finance{
-background:#ffb80022;
-color:var(--amber);
-}
-
-.badge-support{
-background:#00d4ff22;
+.number{
+font-size:45px;
+font-weight:800;
 color:var(--cyan);
 }
 
-.badge-engineering{
-background:#7b61ff22;
-color:#a78bff;
+
+
+.stack-grid{
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 }
 
 
-.badge-high{
-background:#ff4d6d22;
-color:var(--red);
-}
 
-.badge-medium{
-background:#ffb80022;
-color:var(--amber);
-}
-
-.badge-low{
-background:#00e59922;
-color:var(--green);
-}
-
-
-.route-indicator{
-margin-top:10px;
-padding:12px;
-border:1px solid var(--green);
-border-radius:8px;
-background:#00e59911;
-color:var(--green);
-font-family:'JetBrains Mono',monospace;
-font-size:.75rem;
-}
-
-
-/* ARCHITECTURE */
-
-.flow-steps{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-margin-top:40px;
-}
-
-
-.flow-step{
-background:var(--card);
-border:1px solid var(--border);
-padding:25px;
-border-radius:12px;
-}
-
-
-.step-num{
-color:var(--cyan);
-font-family:'JetBrains Mono',monospace;
-font-size:.7rem;
-}
-
-
-.step-icon{
-font-size:2rem;
-margin:10px 0;
-}
-
-
-.step-title{
-font-family:'Space Grotesk',sans-serif;
-font-weight:600;
-}
-
-
-.step-desc{
-color:var(--muted);
-font-size:.85rem;
-}
-
-
-/* CAPABILITIES */
-
-.caps-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:18px;
-margin-top:40px;
-}
-
-
-.cap-card{
-background:var(--card);
-border:1px solid var(--border);
-padding:25px;
-border-radius:12px;
-transition:.2s;
-}
-
-
-.cap-card:hover{
-border-color:var(--cyan);
-transform:translateY(-3px);
-}
-
-
-.cap-icon{
-font-size:2rem;
-}
-
-
-.cap-title{
-font-family:'Space Grotesk',sans-serif;
-margin:10px 0;
-}
-
-
-.cap-desc{
-color:var(--muted);
-font-size:.85rem;
-}
-
-
-.cap-tags{
-margin-top:15px;
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
-
-
-.cap-tag{
-background:var(--cyan-dim);
-color:var(--cyan);
-padding:3px 8px;
-border-radius:5px;
-font-size:.65rem;
-font-family:'JetBrains Mono',monospace;
-}
-
-
-/* STACK */
-
-.stack-list{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-margin-top:35px;
-}
-
-
-.stack-item{
-background:var(--card);
-border:1px solid var(--border);
-padding:14px 18px;
-border-radius:8px;
-}
-
-
-.stack-item:hover{
-border-color:var(--cyan);
-}
-
-
-/* ROADMAP */
-
-.road-items{
-margin-top:40px;
+.roadmap{
 border-left:2px solid var(--border);
-padding-left:30px;
+padding-left:25px;
 }
 
 
-.road-item{
-margin-bottom:30px;
+
+.step{
+margin-bottom:25px;
 }
 
 
-.road-title{
-font-family:'Space Grotesk',sans-serif;
+
+.dot{
+width:12px;
+height:12px;
+border-radius:50%;
+background:var(--green);
+display:inline-block;
+margin-right:10px;
 }
 
 
-.road-desc{
-color:var(--muted);
-font-size:.85rem;
-}
-
-
-/* FOOTER */
 
 footer{
 border-top:1px solid var(--border);
+margin-top:80px;
 padding:40px;
-display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
+text-align:center;
 color:var(--muted);
 }
 
 
-@media(max-width:768px){
 
-nav{
-padding:15px 20px;
-}
+@media(max-width:800px){
 
-.nav-links{
-display:none;
-}
-
-
-.demo-body{
+.flow-grid,
+.impact-grid{
 grid-template-columns:1fr;
 }
 
-
-.demo-divider{
-display:none;
 }
-
-
-footer{
-padding:30px 20px;
-}
-
-}
-
 </style>
 
-<div class="output-result" id="outputResult">
-          <div class="result-row">
-            <span class="result-key">Category</span>
-            <span class="result-val badge" id="catResult"></span>
-          </div>
+</head>
 
-          <div class="result-row">
-            <span class="result-key">Department</span>
-            <span class="result-val badge" id="deptResult"></span>
-          </div>
 
-          <div class="result-row">
-            <span class="result-key">Priority</span>
-            <span class="result-val badge" id="priResult"></span>
-          </div>
+<body>
 
-          <div class="result-row">
-            <span class="result-key">Sentiment</span>
-            <span class="result-val badge" id="senResult"></span>
-          </div>
 
-          <div class="route-indicator">
-            <span class="dot-pulse"></span>
-            <span class="route-text" id="routeText">
-              Waiting for routing...
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<nav>
+
+<div class="logo">
+⚡ AI·ROUTE
+</div>
+
+<div>
+<a href="#demo">Demo</a>
+<a href="#architecture">Architecture</a>
+<a href="#roadmap">Roadmap</a>
+</div>
+
+</nav>
+
+
+
+<div class="container">
+
+
+<section class="hero">
+
+<div>
+
+<div class="label">
+AI AUTOMATION · n8n · GEMINI
+</div>
+
+
+<h1>
+Customer Support<br>
+<span>Tickets Routed Instantly</span>
+</h1>
+
+
+<p>
+AI powered ticket classification system that understands,
+prioritizes and routes customer issues automatically.
+</p>
+
+
+<a class="btn" href="#demo">
+View Demo
+</a>
+
+
+</div>
+
 </section>
 
+
+
+<section id="demo">
+
+<div class="label">
+LIVE DEMO
+</div>
+
+<h2>
+AI Ticket Classification
+</h2>
+
+
+<div class="demo">
+
+
+<div class="card">
+
+
+<div class="ticket" onclick="runDemo('Finance','High','Negative')">
+💳 Double charged subscription
+</div>
+
+
+<div class="ticket" onclick="runDemo('Engineering','High','Negative')">
+🐛 Application crashing
+</div>
+
+
+<div class="ticket" onclick="runDemo('Support','Medium','Neutral')">
+🔑 Password reset issue
+</div>
+
+
+<button onclick="showResult()">
+⚡ Classify Ticket
+</button>
+
+
+</div>
+
+
+
+<div class="card">
+
+
+<h3>
+AI Result
+</h3>
+
+
+<div id="result" class="result">
+
+
+<div class="row">
+Category
+<span id="cat" class="badge blue"></span>
+</div>
+
+
+<div class="row">
+Priority
+<span id="priority" class="badge orange"></span>
+</div>
+
+
+<div class="row">
+Sentiment
+<span id="sentiment" class="badge red"></span>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
 
 <!-- ARCHITECTURE -->
-<section class="flow-section reveal" id="architecture">
 
-  <div class="section-label">Workflow Architecture</div>
+<section id="architecture">
 
-  <h2 class="section-title">
-    How The Automation Works
-  </h2>
+<div class="label">
+SYSTEM ARCHITECTURE
+</div>
 
-  <p class="section-sub">
-    AI powered decision pipeline built with n8n workflow automation.
-  </p>
-
-
-  <div class="flow-steps">
-
-    <div class="flow-step">
-      <div class="step-num">STEP 01</div>
-      <span class="step-icon">📋</span>
-      <div class="step-title">Customer Ticket</div>
-      <div class="step-desc">
-        User submits issue through form trigger.
-      </div>
-      <div class="step-arrow">→</div>
-    </div>
+<h2>
+Workflow Pipeline
+</h2>
 
 
-    <div class="flow-step">
-      <div class="step-num">STEP 02</div>
-      <span class="step-icon">🧠</span>
-      <div class="step-title">Gemini AI Analysis</div>
-      <div class="step-desc">
-        AI extracts category, priority and sentiment.
-      </div>
-      <div class="step-arrow">→</div>
-    </div>
+<div class="flow-grid">
 
 
-    <div class="flow-step">
-      <div class="step-num">STEP 03</div>
-      <span class="step-icon">🔀</span>
-      <div class="step-title">Switch Routing</div>
-      <div class="step-desc">
-        n8n routes ticket to correct department.
-      </div>
-      <div class="step-arrow">→</div>
-    </div>
+<div class="flow-card">
+<div class="icon">📋</div>
+<h3>Form Input</h3>
+<p class="small">
+Customer submits support ticket
+</p>
+</div>
 
 
-    <div class="flow-step">
-      <div class="step-num">STEP 04</div>
-      <span class="step-icon">📧</span>
-      <div class="step-title">Email Notification</div>
-      <div class="step-desc">
-        Gmail API sends team notification.
-      </div>
-    </div>
+<div class="flow-card">
+<div class="icon">🧠</div>
+<h3>Gemini AI</h3>
+<p class="small">
+Classifies category, priority and sentiment
+</p>
+</div>
 
-  </div>
+
+<div class="flow-card">
+<div class="icon">🔀</div>
+<h3>Switch Node</h3>
+<p class="small">
+Routes ticket automatically
+</p>
+</div>
+
+
+<div class="flow-card">
+<div class="icon">📧</div>
+<h3>Gmail API</h3>
+<p class="small">
+Notifies correct team
+</p>
+</div>
+
+
+</div>
 
 </section>
+
 
 
 
 <!-- CAPABILITIES -->
 
-<section class="caps-section reveal" id="capabilities">
 
-<div class="section-label">
+<section>
+
+
+<div class="label">
 AI CAPABILITIES
 </div>
 
-<h2 class="section-title">
-Intelligent Automation Features
+<h2>
+What The System Does
 </h2>
 
 
-<div class="caps-grid">
+<div class="cards">
 
 
 <div class="cap-card">
-<div class="cap-icon">🏷️</div>
-<div class="cap-title">
-Ticket Classification
+<div class="icon">🏷️</div>
+<h3>Classification</h3>
+<p class="small">
+Support, Engineering and Finance routing
+</p>
 </div>
-<div class="cap-desc">
-Automatically identifies Support, Engineering and Finance requests.
-</div>
-<div class="cap-tags">
-<span class="cap-tag">Gemini AI</span>
-<span class="cap-tag">NLP</span>
-</div>
-</div>
-
 
 
 <div class="cap-card">
-<div class="cap-icon">🚦</div>
-<div class="cap-title">
-Priority Detection
+<div class="icon">🚦</div>
+<h3>Priority Detection</h3>
+<p class="small">
+Detects High, Medium and Low urgency
+</p>
 </div>
-<div class="cap-desc">
-Detects urgency and assigns High, Medium or Low priority.
-</div>
-<div class="cap-tags">
-<span class="cap-tag">AI Logic</span>
-<span class="cap-tag">Rules</span>
-</div>
-</div>
-
 
 
 <div class="cap-card">
-<div class="cap-icon">💬</div>
-<div class="cap-title">
-Sentiment Analysis
+<div class="icon">💬</div>
+<h3>Sentiment Analysis</h3>
+<p class="small">
+Understands customer emotion
+</p>
 </div>
-<div class="cap-desc">
-Understands customer emotion and adjusts routing.
-</div>
-<div class="cap-tags">
-<span class="cap-tag">Positive</span>
-<span class="cap-tag">Negative</span>
-</div>
-</div>
-
 
 
 <div class="cap-card">
-<div class="cap-icon">📦</div>
-<div class="cap-title">
-Structured JSON
-</div>
-<div class="cap-desc">
-AI returns clean JSON used by automation nodes.
-</div>
-<div class="cap-tags">
-<span class="cap-tag">JSON</span>
-<span class="cap-tag">API</span>
-</div>
+<div class="icon">JSON</div>
+<h3>Structured Output</h3>
+<p class="small">
+Automation-ready JSON response
+</p>
 </div>
 
 
@@ -779,270 +635,173 @@ AI returns clean JSON used by automation nodes.
 
 </section>
 
-<!-- TECH STACK -->
 
-<section class="stack-section reveal">
-
-<div class="section-label">
-TECH STACK
-</div>
-
-<h2 class="section-title">
-Built With Modern AI Tools
-</h2>
-
-
-<div class="stack-list">
-
-<div class="stack-item">
-<span class="stack-icon">⚙️</span>
-n8n Workflow Automation
-</div>
-
-<div class="stack-item">
-<span class="stack-icon">🧠</span>
-Google Gemini API
-</div>
-
-<div class="stack-item">
-<span class="stack-icon">📧</span>
-Gmail API
-</div>
-
-<div class="stack-item">
-<span class="stack-icon">🔀</span>
-Switch Routing Logic
-</div>
-
-<div class="stack-item">
-<span class="stack-icon">📦</span>
-JSON Processing
-</div>
-
-</div>
-
-</section>
 
 
 
 <!-- IMPACT -->
 
-<section class="impact-section reveal">
 
-<div class="section-label">
+<section>
+
+
+<div class="label">
 PROJECT IMPACT
 </div>
 
-<h2 class="section-title">
-Why This System Matters
+
+<h2>
+Automation Results
 </h2>
+
 
 
 <div class="impact-grid">
 
 
-<div class="impact-item">
-
-<div class="impact-num">
-AI
-</div>
-
-<div class="impact-label">
-Automated Decision Making
-</div>
-
+<div class="impact-card">
+<div class="number">AI</div>
+<p class="small">
+Decision Making
+</p>
 </div>
 
 
-
-<div class="impact-item">
-
-<div class="impact-num">
-24/7
-</div>
-
-<div class="impact-label">
-Always Available Workflow
-</div>
-
+<div class="impact-card">
+<div class="number">24/7</div>
+<p class="small">
+Workflow Availability
+</p>
 </div>
 
 
-
-<div class="impact-item">
-
-<div class="impact-num">
-∞
-</div>
-
-<div class="impact-label">
-Scalable Ticket Handling
-</div>
-
+<div class="impact-card">
+<div class="number">⚡</div>
+<p class="small">
+Faster Routing
+</p>
 </div>
 
 
 </div>
+
 
 </section>
+
+
+
+
+
+<!-- TECH STACK -->
+
+
+<section>
+
+
+<div class="label">
+TECH STACK
+</div>
+
+
+<h2>
+Built With
+</h2>
+
+
+<div class="stack-grid">
+
+
+<div class="stack-card">
+⚙️ n8n Automation
+</div>
+
+
+<div class="stack-card">
+🧠 Google Gemini API
+</div>
+
+
+<div class="stack-card">
+📧 Gmail API
+</div>
+
+
+<div class="stack-card">
+📦 JSON
+</div>
+
+
+</div>
+
+
+</section>
+
 
 
 
 
 <!-- ROADMAP -->
 
-<section class="road-section reveal" id="roadmap">
+
+<section id="roadmap">
 
 
-<div class="section-label">
+<div class="label">
 FUTURE IMPROVEMENTS
 </div>
 
 
-<h2 class="section-title">
-Next Development Steps
+<h2>
+Roadmap
 </h2>
 
 
-<div class="road-items">
+
+<div class="roadmap">
 
 
-<div class="road-item done">
-
-<div class="road-title">
-AI Ticket Classification
-
-<span class="road-badge rb-done">
-DONE
-</span>
-
-</div>
-
-<div class="road-desc">
-Gemini AI classifies incoming support requests.
-</div>
-
+<div class="step">
+<span class="dot"></span>
+Auto Ticket ID Generation
 </div>
 
 
-
-<div class="road-item done">
-
-<div class="road-title">
-Automatic Department Routing
-
-<span class="road-badge rb-done">
-DONE
-</span>
-
-</div>
-
-<div class="road-desc">
-Switch node routes tickets to correct team.
-</div>
-
+<div class="step">
+<span class="dot"></span>
+Google Sheets Logging
 </div>
 
 
-
-
-<div class="road-item soon">
-
-<div class="road-title">
-Google Sheets Database
-
-<span class="road-badge rb-soon">
-NEXT
-</span>
-
-</div>
-
-<div class="road-desc">
-Store ticket history, timestamps and results.
-</div>
-
-</div>
-
-
-
-
-<div class="road-item">
-
-<div class="road-title">
+<div class="step">
+<span class="dot"></span>
 Slack Notifications
-
-<span class="road-badge rb-planned">
-PLANNED
-</span>
-
-</div>
-
-<div class="road-desc">
-Instant alerts for high priority tickets.
-</div>
-
 </div>
 
 
-
-<div class="road-item">
-
-<div class="road-title">
-Customer Auto Reply
-
-<span class="road-badge rb-planned">
-PLANNED
-</span>
-
-</div>
-
-<div class="road-desc">
-Send automatic acknowledgment emails.
-</div>
-
+<div class="step">
+<span class="dot"></span>
+SLA Escalation
 </div>
 
 
-
 </div>
+
 
 </section>
 
 
 
 
-<!-- FOOTER -->
-
 
 <footer>
 
-<div class="footer-left">
-
-<strong>
-AI Ticket Routing System
-</strong>
-
-<br>
-
-Built with n8n + Gemini AI + Gmail API
-
-<br>
-
-AI Automation Learning Journey
-
-</div>
-
-
-<div class="footer-links">
-
-<a href="https://github.com">
-GitHub
-</a>
-
-</div>
-
+Built as part of AI Automation Learning Journey 🚀
 
 </footer>
+
+
+
+</div>
 
 
 
@@ -1050,129 +809,42 @@ GitHub
 <script>
 
 
-const chips =
-document.querySelectorAll(".ticket-chip");
-
-
-const output =
-document.getElementById("outputResult");
-
-
-const idle =
-document.getElementById("outputIdle");
-
-
-let selected =
-chips[0];
+let current = {
+category:"Finance",
+priority:"High",
+sentiment:"Negative"
+};
 
 
 
-chips.forEach(chip => {
+function runDemo(a,b,c){
 
-
-chip.addEventListener("click",()=>{
-
-
-chips.forEach(c =>
-c.classList.remove("active")
-);
-
-
-chip.classList.add("active");
-
-
-selected = chip;
-
-
-});
-
-
-});
-
-
-
-
-document
-.getElementById("classifyBtn")
-.addEventListener("click",()=>{
-
-
-idle.style.display="none";
-
-
-document
-.getElementById("catResult")
-.textContent =
-selected.dataset.cat;
-
-
-document
-.getElementById("deptResult")
-.textContent =
-selected.dataset.dept;
-
-
-document
-.getElementById("priResult")
-.textContent =
-selected.dataset.pri;
-
-
-document
-.getElementById("senResult")
-.textContent =
-selected.dataset.sen;
-
-
-
-document
-.getElementById("routeText")
-.textContent =
-"Routing → "
-+
-selected.dataset.route;
-
-
-
-output.classList.add("visible");
-
-
-
-});
-
-
-
-
-// scroll animation
-
-const observer =
-new IntersectionObserver(
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("visible");
+current.category=a;
+current.priority=b;
+current.sentiment=c;
 
 }
 
-});
+
+function showResult(){
+
+
+document.getElementById("result").style.display="block";
+
+
+cat.innerText=current.category;
+
+priority.innerText=current.priority;
+
+sentiment.innerText=current.sentiment;
+
 
 }
-);
-
-
-
-document
-.querySelectorAll(".reveal")
-.forEach(el =>
-observer.observe(el)
-);
 
 
 </script>
 
 
 </body>
+
 </html>
